@@ -49,21 +49,21 @@ Heartstring.HSDelayedInputTrigger = function (container, config) {
             if (!stopwatch) {
                 //first keystroke
                 stopwatch = new Date().getTime();
-                return;
             }
             if (currentTime - stopwatch > that.config.TIMEDELAY) {
                 //trigger event
                 that.config.callback(that);
             } 
             
+            //Update the timer for the next keystroke.
+            stopwatch = new Date().getTime();
+            
             //The last letter will never trigger anything
             clearTimeout(timeoutTracker);
             timeoutTracker = setTimeout(function() {
                 that.config.callback(that);
+                stopwatch = null;  //if the user stopped typing, then we reset timer from the next keystroke
             }, that.config.TIMEDELAY);
-            
-            stopwatch = new Date().getTime();
-            console.log(stopwatch);
         });
     };
     return that;
@@ -84,7 +84,6 @@ Heartstring.HSDelayedInputTrigger.bind = function(that) {
     that.bindKeyup(that);
 }
 
-
 //default settings for this component
 Heartstring.HSDelayedInputTrigger.defaults = {
     container: "",
@@ -93,7 +92,7 @@ Heartstring.HSDelayedInputTrigger.defaults = {
         selectors: {
         },
         callback: function(that) {
-            console.log(Heartstring.select(that.container).val());
+            //custom function goes here.
         }
     }
 };
