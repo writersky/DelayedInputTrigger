@@ -88,7 +88,7 @@ Heartstring.HSDelayedInputTrigger.bind = function(that) {
 Heartstring.HSDelayedInputTrigger.defaults = {
     container: "",
     config: {
-        TIMEDELAY: 1000,
+        TIMEDELAY: 500, //in ms, 0 for no delay.
         selectors: {
         },
         callback: function(that) {
