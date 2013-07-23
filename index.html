@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <!-- 
 /*************************************************************************
  * Heartstring.js
@@ -18,7 +19,7 @@
  * limitations under the License.
  **************************************************************************/
  -->
-<html>
+<html lang="en"> 
 <head>
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="Heartstring.js"></script>
@@ -26,14 +27,25 @@
     <script type="text/javascript">
     //<![CDATA[
     $(document).ready(function(){
-        var inputConfig = {
-        };
-        Heartstring.HSDelayedInputTrigger.init('.ws-search-query', inputConfig);
+        var config = {
+            selectors: {
+                output: ".output"
+            },
+            callback: function(that) {
+                //Output it into the div
+                var textVal = Heartstring.select(that.container).val();
+                Heartstring.select(that.config.selectors.output).text(textVal);
+            }
+        }
+        Heartstring.HSDelayedInputTrigger.init('.ws-input', config);
     });
     //]]>
     </script>
 </head>
 <body>
-    
+    <label>Enter text here, try typing with different speed.</label>
+    <input type="text" class="ws-input" />
+    <h3>Here is the output:</h3>
+    <div class="output"></div>
 </body>
 </html>
